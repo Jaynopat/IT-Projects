@@ -52,8 +52,8 @@ public class UserProfileJFrame extends javax.swing.JFrame {
         emailTextField = new javax.swing.JTextField();
         phoneNumberTextField = new javax.swing.JTextField();
         emailNameLabel = new javax.swing.JLabel();
-        noPhotojLabel = new javax.swing.JLabel();
-        uploadPhotojButton = new javax.swing.JButton();
+        photoLabel = new javax.swing.JLabel();
+        uploadPhotoButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 102, 102));
@@ -137,17 +137,17 @@ public class UserProfileJFrame extends javax.swing.JFrame {
         emailNameLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         emailNameLabel.setText("Email:");
 
-        noPhotojLabel.setBackground(new java.awt.Color(255, 255, 255));
-        noPhotojLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        noPhotojLabel.setForeground(new java.awt.Color(255, 255, 255));
-        noPhotojLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        noPhotojLabel.setPreferredSize(new java.awt.Dimension(60, 80));
+        photoLabel.setBackground(new java.awt.Color(255, 255, 255));
+        photoLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        photoLabel.setForeground(new java.awt.Color(255, 255, 255));
+        photoLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        photoLabel.setPreferredSize(new java.awt.Dimension(60, 80));
 
-        uploadPhotojButton.setText("Upload Photo");
-        uploadPhotojButton.setBorder(null);
-        uploadPhotojButton.addActionListener(new java.awt.event.ActionListener() {
+        uploadPhotoButton.setText("Upload Photo");
+        uploadPhotoButton.setBorder(null);
+        uploadPhotoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                uploadPhotojButtonActionPerformed(evt);
+                uploadPhotoButtonActionPerformed(evt);
             }
         });
 
@@ -201,8 +201,8 @@ public class UserProfileJFrame extends javax.swing.JFrame {
                     .addGroup(userProfilePanelLayout.createSequentialGroup()
                         .addGap(71, 71, 71)
                         .addGroup(userProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(uploadPhotojButton)
-                            .addComponent(noPhotojLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(uploadPhotoButton)
+                            .addComponent(photoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(userProfilePanelLayout.createSequentialGroup()
                 .addGap(265, 265, 265)
@@ -215,12 +215,12 @@ public class UserProfileJFrame extends javax.swing.JFrame {
                 .addGroup(userProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(userProfilePanelLayout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addComponent(noPhotojLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(photoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(userProfilePanelLayout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(userProfileFormLabel)))
                 .addGap(1, 1, 1)
-                .addComponent(uploadPhotojButton)
+                .addComponent(uploadPhotoButton)
                 .addGroup(userProfilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(userProfilePanelLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -270,6 +270,14 @@ public class UserProfileJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lastNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastNameTextFieldActionPerformed
+        
+    }//GEN-LAST:event_lastNameTextFieldActionPerformed
+
+    private void ageTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ageTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ageTextFieldActionPerformed
+
+    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         // TODO add your handling code here:
         
         try{
@@ -341,14 +349,14 @@ public class UserProfileJFrame extends javax.swing.JFrame {
             return;
         }
 //      Create a variable for success message \\
-        String successMessage = "firstName:" + firstName
+        String successMessage = "First name:" + firstName
         + "\nlastName:" + lastName
         + "\nAge:" + age
         + "\ngender: " + gender
         + "\nphonenumber:" + phonenumber
         + "\nemail: " + email;
                 
-         JOptionPane.showMessageDialog(rootPane, "successMessage", "Success!", JOptionPane.ERROR_MESSAGE);
+         JOptionPane.showMessageDialog(rootPane, successMessage, "Success!", JOptionPane.INFORMATION_MESSAGE);
          
         } catch (NumberFormatException e){
             JOptionPane.showMessageDialog(rootPane, "Invalid age provided", "errorTitle", JOptionPane.ERROR_MESSAGE);
@@ -360,26 +368,11 @@ public class UserProfileJFrame extends javax.swing.JFrame {
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(rootPane, "Invalid phone number!", "Error", JOptionPane.ERROR_MESSAGE);
     
-}
-       
-        
         }
-        
-
-    }//GEN-LAST:event_lastNameTextFieldActionPerformed
-
-    private void ageTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ageTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ageTextFieldActionPerformed
-
-    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void firstNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstNameTextFieldActionPerformed
         // TODO add your handling code here:
-        
-       
     }//GEN-LAST:event_firstNameTextFieldActionPerformed
 
     private void phoneNumberTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneNumberTextFieldActionPerformed
@@ -394,35 +387,8 @@ public class UserProfileJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_femaleButtonActionPerformed
 
-    private void uploadPhotojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadPhotojButtonActionPerformed
+    private void uploadPhotoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadPhotoButtonActionPerformed
         // TODO add your handling code here:
-        
-   public class UserProfileForm extends JFrame {                                                
-   private JLabel photoLabel;
-    private JButton uploadButton;
-   
-    public UserProfileForm() {
-        setTitle("User Profile");
-        setSize(400, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new FlowLayout());
-
-        // Label for photo
-        photoLabel = new JLabel("No Photo");
-        photoLabel.setPreferredSize(new Dimension(150, 150));
-        photoLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
-        // Upload button
-        uploadButton = new JButton("Upload Photo");
-        uploadButton.addActionListener(e -> uploadPhoto());
-
-        add(photoLabel);
-        add(uploadButton);
-
-        setVisible(true);
-    }
-
-     private void uploadPhoto() {
         JFileChooser fileChooser = new JFileChooser();
         int option = fileChooser.showOpenDialog(this);
 
@@ -432,18 +398,14 @@ public class UserProfileJFrame extends javax.swing.JFrame {
 
             // Resize image to fit the label
             Image img = icon.getImage().getScaledInstance(
-                            photoLabel.getWidth(),
-                            photoLabel.getHeight(),
+                            this.photoLabel.getWidth(),
+                            this.photoLabel.getHeight(),
                             Image.SCALE_SMOOTH);
 
             photoLabel.setText(""); // Remove "No Photo"
             photoLabel.setIcon(new ImageIcon(img));
         }
-    }
-
- 
- 
-    }//GEN-LAST:event_uploadPhotojButtonActionPerformed
+    }//GEN-LAST:event_uploadPhotoButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -467,7 +429,7 @@ public class UserProfileJFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-       
+       java.awt.EventQueue.invokeLater(() -> new UserProfileJFrame().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -483,14 +445,13 @@ public class UserProfileJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lastNameLabel;
     private javax.swing.JTextField lastNameTextField;
     private javax.swing.JRadioButton maleRadioButton;
-    private javax.swing.JLabel noPhotojLabel;
     private javax.swing.JLabel phoneNumberLabel;
     private javax.swing.JTextField phoneNumberTextField;
+    private javax.swing.JLabel photoLabel;
     private javax.swing.JButton submitButton;
-    private javax.swing.JButton uploadPhotojButton;
+    private javax.swing.JButton uploadPhotoButton;
     private javax.swing.JLabel userProfileFormLabel;
     private javax.swing.JPanel userProfilePanel;
     // End of variables declaration//GEN-END:variables
-
-
+}
 
