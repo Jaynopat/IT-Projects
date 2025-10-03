@@ -169,7 +169,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_nameTextFieldActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-//        try {
+        try {
               // Declare variables for user inputs
     String name; 
     int age;
@@ -198,16 +198,16 @@ public class MainJFrame extends javax.swing.JFrame {
         
         
         System.out.println( name +" " + age + " " + college);  
-//        } catch (NumberFormatException e){
-//            JOptionPane.showMessageDialog(rootPane, "Invalid age provided", "Oops!", JOptionPane.ERROR_MESSAGE);
-////                System.out.println("Error: Invalida age provided");
-//        } catch (NullPointerException e) {
-//             JOptionPane.showMessageDialog(rootPane, "No college selected", "Oops!", JOptionPane.ERROR_MESSAGE);
-////                        System.out.println("Error: No college selected");
-//        } catch (Exception e) {
-//             JOptionPane.showMessageDialog(rootPane, "Something went wrong", "Oops!", JOptionPane.ERROR_MESSAGE);
-////                    System.out.println("Error: " + e.getMessage());
-//        }
+        } catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(rootPane, "Invalid age provided", "Oops!", JOptionPane.ERROR_MESSAGE);
+//                System.out.println("Error: Invalida age provided");
+        } catch (NullPointerException e) {
+             JOptionPane.showMessageDialog(rootPane, "No college selected", "Oops!", JOptionPane.ERROR_MESSAGE);
+//                        System.out.println("Error: No college selected");
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(rootPane, "Something went wrong", "Oops!", JOptionPane.ERROR_MESSAGE);
+//                    System.out.println("Error: " + e.getMessage());
+        }
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void ageTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ageTextFieldActionPerformed

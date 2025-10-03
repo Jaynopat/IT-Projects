@@ -4,15 +4,26 @@
  */
 package ui;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import model.Student;
 
 /**
  *
  * @author Admin
  */
 public class MainJFrame extends javax.swing.JFrame {
+    Image photo;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MainJFrame.class.getName());
+    private String errorTitle;
 
     /**
      * Creates new form java
@@ -37,25 +48,40 @@ public class MainJFrame extends javax.swing.JFrame {
         ageLabel = new javax.swing.JLabel();
         collegeLabel = new javax.swing.JLabel();
         nameTextField = new javax.swing.JTextField();
-        ageTextField = new javax.swing.JTextField();
         ceoRadioButton = new javax.swing.JRadioButton();
         cpsRadioButton = new javax.swing.JRadioButton();
         submitButton = new javax.swing.JButton();
+        ageSpinner = new javax.swing.JSpinner();
+        phoneLabel = new javax.swing.JLabel();
+        phoneFormattedTextField = new javax.swing.JFormattedTextField();
+        continentLabel = new javax.swing.JLabel();
+        continentComboBox = new javax.swing.JComboBox<>();
+        experienceLabel = new javax.swing.JLabel();
+        experienceScrollPane = new javax.swing.JScrollPane();
+        experienceTextArea = new javax.swing.JTextArea();
+        photoLabel = new javax.swing.JLabel();
+        photoTextField = new javax.swing.JTextField();
+        uploadPhotoButton = new javax.swing.JButton();
+        showPhotoLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        registrationPanel.setBackground(new java.awt.Color(102, 255, 255));
+        registrationPanel.setBackground(new java.awt.Color(0, 102, 102));
 
         registrationLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        registrationLabel.setForeground(new java.awt.Color(255, 255, 255));
         registrationLabel.setText("Registration");
 
         nameLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        nameLabel.setForeground(new java.awt.Color(255, 255, 255));
         nameLabel.setText("Name:");
 
         ageLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        ageLabel.setForeground(new java.awt.Color(255, 255, 255));
         ageLabel.setText("Age:");
 
         collegeLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        collegeLabel.setForeground(new java.awt.Color(255, 255, 255));
         collegeLabel.setText("College");
 
         nameTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -64,27 +90,73 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        ageTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ageTextFieldActionPerformed(evt);
-            }
-        });
-
         collegeButtonGroup.add(ceoRadioButton);
+        ceoRadioButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        ceoRadioButton.setForeground(new java.awt.Color(255, 255, 255));
         ceoRadioButton.setText("College of Engineering (COE)");
         ceoRadioButton.setActionCommand("COE");
 
         collegeButtonGroup.add(cpsRadioButton);
+        cpsRadioButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        cpsRadioButton.setForeground(new java.awt.Color(255, 255, 255));
         cpsRadioButton.setText("College of Pofessional Studies (CPS)");
         cpsRadioButton.setActionCommand("CPS");
 
-        submitButton.setBackground(new java.awt.Color(0, 0, 0));
         submitButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        submitButton.setForeground(new java.awt.Color(255, 255, 255));
         submitButton.setText("Submit");
         submitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitButtonActionPerformed(evt);
+            }
+        });
+
+        ageSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 200, 1));
+
+        phoneLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        phoneLabel.setForeground(new java.awt.Color(255, 255, 255));
+        phoneLabel.setText("Phone:");
+
+        try {
+            phoneFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-###-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        phoneFormattedTextField.setToolTipText("123-456-7890");
+
+        continentLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        continentLabel.setForeground(new java.awt.Color(255, 255, 255));
+        continentLabel.setText("Continent:");
+
+        continentComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Africa", "Antarctica", "Asia", "Australia", "Europe", "America", "South America" }));
+        continentComboBox.setSelectedIndex(-1);
+
+        experienceLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        experienceLabel.setForeground(new java.awt.Color(255, 255, 255));
+        experienceLabel.setText("Experience:");
+
+        experienceTextArea.setColumns(20);
+        experienceTextArea.setRows(5);
+        experienceScrollPane.setViewportView(experienceTextArea);
+
+        photoLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        photoLabel.setForeground(new java.awt.Color(255, 255, 255));
+        photoLabel.setText("Photo:");
+
+        photoTextField.setEditable(false);
+        photoTextField.setEnabled(false);
+        photoTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                photoTextFieldActionPerformed(evt);
+            }
+        });
+
+        uploadPhotoButton.setBackground(new java.awt.Color(0, 51, 51));
+        uploadPhotoButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        uploadPhotoButton.setForeground(new java.awt.Color(255, 255, 255));
+        uploadPhotoButton.setText("Upload Photo");
+        uploadPhotoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uploadPhotoButtonActionPerformed(evt);
             }
         });
 
@@ -93,56 +165,93 @@ public class MainJFrame extends javax.swing.JFrame {
         registrationPanelLayout.setHorizontalGroup(
             registrationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(registrationPanelLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
                 .addGroup(registrationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(registrationPanelLayout.createSequentialGroup()
-                        .addGap(138, 138, 138)
+                        .addGroup(registrationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(continentLabel)
+                            .addComponent(phoneLabel)
+                            .addComponent(collegeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(registrationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(phoneFormattedTextField)
+                            .addComponent(continentComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(registrationPanelLayout.createSequentialGroup()
+                                .addGroup(registrationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cpsRadioButton)
+                                    .addComponent(ceoRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ageSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(registrationPanelLayout.createSequentialGroup()
+                        .addGroup(registrationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(experienceLabel)
+                            .addComponent(photoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(registrationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(photoTextField)
+                            .addComponent(experienceScrollPane))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(uploadPhotoButton)
+                .addGap(27, 27, 27))
+            .addGroup(registrationPanelLayout.createSequentialGroup()
+                .addGroup(registrationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(registrationPanelLayout.createSequentialGroup()
+                        .addGap(198, 198, 198)
                         .addComponent(registrationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(registrationPanelLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(registrationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(registrationPanelLayout.createSequentialGroup()
-                                .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(registrationPanelLayout.createSequentialGroup()
-                                .addComponent(ageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(registrationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(registrationPanelLayout.createSequentialGroup()
-                                    .addComponent(collegeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(ceoRadioButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, registrationPanelLayout.createSequentialGroup()
-                                    .addGap(57, 57, 57)
-                                    .addComponent(cpsRadioButton)))))
-                    .addGroup(registrationPanelLayout.createSequentialGroup()
-                        .addGap(148, 148, 148)
+                        .addGap(239, 239, 239)
                         .addComponent(submitButton)))
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, registrationPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(showPhotoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         registrationPanelLayout.setVerticalGroup(
             registrationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(registrationPanelLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(23, 23, 23)
                 .addComponent(registrationLabel)
+                .addGap(73, 73, 73)
+                .addGroup(registrationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nameLabel))
                 .addGap(18, 18, 18)
                 .addGroup(registrationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nameLabel)
-                    .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(registrationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(ageLabel)
-                    .addComponent(ageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ageSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ageLabel))
                 .addGap(18, 18, 18)
                 .addGroup(registrationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(collegeLabel)
-                    .addComponent(ceoRadioButton))
+                    .addComponent(cpsRadioButton)
+                    .addComponent(collegeLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cpsRadioButton)
+                .addComponent(ceoRadioButton)
                 .addGap(18, 18, 18)
+                .addGroup(registrationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(phoneFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(phoneLabel))
+                .addGap(18, 18, 18)
+                .addGroup(registrationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(continentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(continentLabel))
+                .addGap(18, 18, 18)
+                .addGroup(registrationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(experienceLabel)
+                    .addComponent(experienceScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(registrationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(photoLabel)
+                    .addGroup(registrationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(uploadPhotoButton)
+                        .addComponent(photoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(showPhotoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(submitButton)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addGap(37, 37, 37))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -150,15 +259,14 @@ public class MainJFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(registrationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(registrationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(registrationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(registrationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -169,50 +277,140 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_nameTextFieldActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-//        try {
+        
+        try {
               // Declare variables for user inputs
-    String name; 
-    int age;
-    String college;
+        String name; 
+        int age;
+        String college;
+        String phone;
+        String continent;
+        String experience;
     
     // Extract and store user's data from components
-        name = nameTextField.getText();
-        age = Integer.parseInt(ageTextField.getText());
-        college = collegeButtonGroup.getSelection().getActionCommand();
+        name = this.nameTextField.getText();
+        age = (int) this.ageSpinner.getModel().getValue();
+        college = this.collegeButtonGroup.getSelection().getActionCommand();
+        phone = this.phoneFormattedTextField.getText();
+        continent = (String)this.continentComboBox.getModel().getSelectedItem();
+        experience = this.experienceTextArea.getText();
         
 //        Check name validity
         if(name.isBlank()) {
-             JOptionPane.showMessageDialog(rootPane, "Invalid name provided", "Oops!", JOptionPane.ERROR_MESSAGE);
+             JOptionPane.showMessageDialog(rootPane, "Invalid name provided", "errorTitle!", JOptionPane.ERROR_MESSAGE);
              return;
         }
 //        Check age validity
-        if (age < 18){
-             JOptionPane.showMessageDialog(rootPane, "Invalid age provided", "Oops!", JOptionPane.ERROR_MESSAGE);
+        if (age < 0){
+        String errorTitle = null;
+             JOptionPane.showMessageDialog(rootPane, "Invalid age provided!", errorTitle, JOptionPane.ERROR_MESSAGE);
              return;
         }
         
-//      Create a variable for success message \\
-        String successMessage = "Name:" + name 
-                + "Age:" + age
-                + "college: " + college;
+//        check college validity
+        if (college.equals("COE")){
+            college = "College of Engineering (COE)";
+        }
         
+        if (college.equals("CPS")){
+            college = "College of Professional Studies (CPS)";
+        }
         
-        System.out.println( name +" " + age + " " + college);  
-//        } catch (NumberFormatException e){
-//            JOptionPane.showMessageDialog(rootPane, "Invalid age provided", "Oops!", JOptionPane.ERROR_MESSAGE);
-////                System.out.println("Error: Invalida age provided");
-//        } catch (NullPointerException e) {
-//             JOptionPane.showMessageDialog(rootPane, "No college selected", "Oops!", JOptionPane.ERROR_MESSAGE);
-////                        System.out.println("Error: No college selected");
-//        } catch (Exception e) {
-//             JOptionPane.showMessageDialog(rootPane, "Something went wrong", "Oops!", JOptionPane.ERROR_MESSAGE);
-////                    System.out.println("Error: " + e.getMessage());
+//        switch (college) {
+//            case "COE":
+//                 college = "College of Engineering (COE)";
+//                break;
+//            case "CPS":
+//                 college = "College of Professional Studies (CPS)";
+//                break;
+//            default:
+//                 throw new AssertionError("Unknown College");
 //        }
+        
+////        rule based
+//            switch (college) {
+//                case "COE" -> college = "College of Engineering (COE)";
+//                case "CPS" -> college = "College of Professional Studies (CPS)";
+//                default-> throw new AssertionError("Unknown College");
+//            }
+//     check phone validity
+        if (phone.replace("-", "").isBlank()){
+        String errorTitle = null;
+        JOptionPane.showMessageDialog(rootPane, "Invalid phone number provided", errorTitle, JOptionPane.ERROR_MESSAGE);
+             return;
+        
+        }
+//       check continent validity
+             if (continent == null){
+             JOptionPane.showMessageDialog(rootPane, "Invalid continent provided", errorTitle, JOptionPane.ERROR_MESSAGE);
+             return;
+             }
+             
+//       check experience validity
+        if (experience.length() <= 5 || experience.isBlank()){
+            JOptionPane.showMessageDialog(rootPane, "Invald experience provided", errorTitle, JOptionPane.ERROR_MESSAGE);
+             return;
+        }
+             
+
+        if (this.photo == null){
+             JOptionPane.showMessageDialog(rootPane, "Photo not provided", errorTitle, JOptionPane.ERROR_MESSAGE);
+             return;
+             }
+        
+        //       create a Student object
+        Student student = new Student(name, age, college, phone, continent,experience, this.photo);
+
+//      Create a success message \\
+        JOptionPane.showMessageDialog(rootPane, student, "Success!", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(student.getPhoto()));
+        
+
+
+          System.out.println( name +" " + age + " " + college);  
+          } catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(rootPane, "Invalid age provided", "Oops!", JOptionPane.ERROR_MESSAGE);
+                System.out.println("Error: Invalida age provided");
+        } catch (NullPointerException e) {
+             JOptionPane.showMessageDialog(rootPane, "No college selected", "Oops!", JOptionPane.ERROR_MESSAGE);
+                        System.out.println("Error: No college selected");
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(rootPane, "Something went wrong", "Oops!", JOptionPane.ERROR_MESSAGE);
+                    System.out.println("Error: " + e.getMessage());
+        }
     }//GEN-LAST:event_submitButtonActionPerformed
 
-    private void ageTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ageTextFieldActionPerformed
+    private void uploadPhotoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadPhotoButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ageTextFieldActionPerformed
+        JFileChooser file = new JFileChooser();
+        
+//        Apply image filter or image file type
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Image files", "jpeg", "png", "gif", "jpg");
+        file.setFileFilter(filter);
+        
+        if (file.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+        try {
+        BufferedImage img = ImageIO.read(file.getSelectedFile());
+        Image edited_image = img.getScaledInstance(100, 120,
+        Image.SCALE_SMOOTH);
+//        if image is not null
+        if (edited_image != null) {
+//            set a text path in the phototetfield
+        this.photoTextField.setText(file.getSelectedFile().getAbsolutePath());
+        this.showPhotoLabel.setIcon(new ImageIcon(edited_image));
+        this.photo = edited_image;
+        }
+        
+        } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Please upload image correctly.", "Error - Incorrect image", JOptionPane.ERROR_MESSAGE);
+        ex.printStackTrace();
+        }
+        }
+
+    }//GEN-LAST:event_uploadPhotoButtonActionPerformed
+
+    private void photoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_photoTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_photoTextFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,15 +440,29 @@ public class MainJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ageLabel;
-    private javax.swing.JTextField ageTextField;
+    private javax.swing.JSpinner ageSpinner;
     private javax.swing.JRadioButton ceoRadioButton;
     private javax.swing.ButtonGroup collegeButtonGroup;
     private javax.swing.JLabel collegeLabel;
+    private javax.swing.JComboBox<String> continentComboBox;
+    private javax.swing.JLabel continentLabel;
     private javax.swing.JRadioButton cpsRadioButton;
+    private javax.swing.JLabel experienceLabel;
+    private javax.swing.JScrollPane experienceScrollPane;
+    private javax.swing.JTextArea experienceTextArea;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JTextField nameTextField;
+    private javax.swing.JFormattedTextField phoneFormattedTextField;
+    private javax.swing.JLabel phoneLabel;
+    private javax.swing.JLabel photoLabel;
+    private javax.swing.JTextField photoTextField;
     private javax.swing.JLabel registrationLabel;
     private javax.swing.JPanel registrationPanel;
+    private javax.swing.JLabel showPhotoLabel;
     private javax.swing.JButton submitButton;
+    private javax.swing.JButton uploadPhotoButton;
     // End of variables declaration//GEN-END:variables
+
+   
+    
 }

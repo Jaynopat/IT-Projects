@@ -2,19 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package bankaccountdemo;
+package topicf;
 
 /**
  *
  * @author Admin
  */
-public class BankAccountDemo {
+public class TopicF {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        OnlineLearningSystem student = new StudentPortal();
+        student.login();
+        student.create("S123", "CSE101");
+        student.viewCourse("CSE101");
+        student.submitAssignment("S123", "CSE101", "A1");
+        
     }
-    
 }
